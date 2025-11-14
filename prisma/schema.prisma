@@ -15,8 +15,25 @@ model User {
     password String
     avatar   String?
 
+    // Declarar relaciones
+    role   Role? @relation(fields: [roleId], references: [id])
+    roleId Int?
+
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
     @@map("users")
+}
+
+model Role {
+    id          Int     @id @default(autoincrement())
+    name        String  @unique
+    description String?
+
+    users User[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@map("roles")
 }
