@@ -37,3 +37,18 @@ model Role {
 
     @@map("roles")
 }
+
+model Customer {
+    id        String   @id @default(uuid())
+    name      String
+    lastname  String
+    email     String   @unique
+    phone     String
+    address   String?
+    birthDate DateTime?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@map("customers")
+}
