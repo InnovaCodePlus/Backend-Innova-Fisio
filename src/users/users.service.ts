@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, InternalServerErrorException } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -92,6 +92,23 @@ export class UsersService {
         }
     }
 
+    async findOne(id: string) {
+
+        const userExist = await this.prisma.user.findUnique({
+            where: { id },
+            include: {
+                appointments: true,
+            }
+        })
+
+        if (!userExist) {
+            throw new NotFoundException('Usuario no encontrado');
+        }
+
+        return {
+            customer: userExist
+        };
+    }
 
     async update(id: string, updateUserDto: UpdateUserDto) {
 

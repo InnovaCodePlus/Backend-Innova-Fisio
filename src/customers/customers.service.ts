@@ -80,7 +80,10 @@ export class CustomersService {
     async findOne(id: string) {
 
         const customerExist = await this.prisma.customer.findUnique({
-            where: { id }
+            where: { id },
+            include: {
+                appointments: true,
+            }
         })
 
         if (!customerExist) {
