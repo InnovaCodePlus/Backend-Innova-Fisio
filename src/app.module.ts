@@ -4,9 +4,10 @@ import { PrismaModule } from './prisma/prisma.module';
 import { CustomersModule } from './customers/customers.module';
 import { AppointmentsModule } from './appointments/appointments.module';
 import { AppointmentRequestsModule } from './appointment-requests/appointment-requests.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-    imports: [UsersModule, PrismaModule, CustomersModule, AppointmentsModule, AppointmentRequestsModule],
+    imports: [UsersModule, PrismaModule, CustomersModule, AppointmentsModule, AppointmentRequestsModule, AuthModule],
     controllers: [],
     providers: [],
 })

@@ -4,10 +4,11 @@ import { AppointmentsController } from './appointments.controller';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import { CustomersModule } from 'src/customers/customers.module';
 import { UsersModule } from 'src/users/users.module';
+import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
     controllers: [AppointmentsController],
     providers: [AppointmentsService],
-    imports: [PrismaModule, CustomersModule, UsersModule]
+    imports: [PrismaModule, CustomersModule, UsersModule, AuthModule]
 })
 export class AppointmentsModule { }

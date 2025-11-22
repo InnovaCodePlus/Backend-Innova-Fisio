@@ -3,6 +3,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { RequestFiltersDto } from 'src/common/dto/request-filters.dto';
+import bcrypt from "bcrypt";
 
 @Injectable()
 export class UsersService {
@@ -62,20 +63,15 @@ export class UsersService {
 
 
     async create(createUserDto: CreateUserDto) {
-
-        // const clientExists = await this.prisma.user.findFirst({
-        //     where: {
-        //         email: createUserDto.email
-        //     }
-        // });
-
-        // if(clientExists){
-        //     throw new BadRequestException('El email ya está en uso');
-        // }
-
         try {
             const user = await this.prisma.user.create({
-                data: createUserDto
+                data: {
+                    ...createUserDto,
+                    password: bcrypt.hashSync(createUserDto.password, 10),
+                },
+                omit: {
+                    password: true,
+                }
             })
 
             return {
