@@ -42,7 +42,16 @@ export class UsersService {
                     createdAt: 'desc',
                 },
                 omit: {
+                    token: true,
+                    roleId: true,
                     password: true,
+                },
+                include: {
+                    role: {
+                        select: {
+                            name: true,
+                        }
+                    }
                 },
                 where: whereClause,
             })

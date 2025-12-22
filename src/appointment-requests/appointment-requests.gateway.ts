@@ -24,8 +24,16 @@ export class AppointmentRequestsGateway implements OnModuleInit {
         this.server.emit('appointmentRequestCreated', appointmentRequestCreated);
     }
 
+    // @SubscribeMessage('changeStatusAppointmentRequest')
+    // async changeStatus(@MessageBody() changeStatusAppointmentRequestDto: ChangeStatusAppointmentRequestDto) {
+    //     await this.appointmentRequestsService.changeStatus(changeStatusAppointmentRequestDto);
+    //     // this.server.emit('appointmentRequestCreated', appointmentRequestCreated);
+    //     this.findAll();
+    // }
+
     @SubscribeMessage('findAllAppointmentRequests')
-    findAll() {
-        return this.appointmentRequestsService.findAll();
+    async findAll() {
+        const response = await this.appointmentRequestsService.findAll();
+        return this.server.emit('appointmentRequestsList', response);
     }
 }
